@@ -40,3 +40,16 @@
 .read-the-docs {
   color: #888;
 }
+
+.game_squares_group{
+
+  font-size: 40px;
+  text-align: center;
+
+}
+
+#game_squares{
+  height: 130px;
+  width: 130px;
+  margin: 10px;
+}
