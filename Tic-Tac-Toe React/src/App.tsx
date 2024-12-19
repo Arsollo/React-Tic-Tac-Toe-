@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -9,11 +9,30 @@ function App() {
   const [player, setPlayer] = useState("X")
   const [message, setMessage] = useState("Player " + player + " : your turn to play")
 
-  async function switchPlayer(){
+  function switchPlayer(){
     if (player == "X"){
       setPlayer("O")
     }else setPlayer("X")
   }
+
+  useEffect(()=> {
+    setMessage("Player " + player + " : your turn to play")
+
+    //Check if anyone won
+    if (calculateWinner(squares) == "X"){
+      setMessage("Game Over! Player X won!")
+      setTimeout(() => {
+        setSquares([" ", " ", " ", " ", " ", " ", " ", " ", " "])
+        setMessage("Player X: your turn to play")
+      }, 3000);
+    }else if (calculateWinner(squares) == "O"){
+      setMessage("Game Over! Player O won!")
+      setTimeout(() => {
+        setSquares([" ", " ", " ", " ", " ", " ", " ", " ", " "])
+        setMessage("Player X: your turn to play")
+      }, 3000);
+    }
+  }, [player])
 
   function fillSquare(squareid:number, currentValue:string){
     if (currentValue == " "){
@@ -21,22 +40,6 @@ function App() {
       temp[squareid] = player
       setSquares(temp)
       switchPlayer()
-      console.log(player)
-      setMessage("Player " + player + " : your turn to playy")
-
-      //Check if anyone won
-      if (calculateWinner(squares) == "X"){
-        setMessage("Game Over! Player X won!")
-        setTimeout(() => {
-          setSquares([" ", " ", " ", " ", " ", " ", " ", " ", " "])
-        }, 3000);
-      }else if (calculateWinner(squares) == "O"){
-        setMessage("Game Over! Player O won!")
-        setTimeout(() => {
-          setSquares([" ", " ", " ", " ", " ", " ", " ", " ", " "])
-        }, 3000);
-      }
-    
     }else{
     }
   }
@@ -83,21 +86,6 @@ function App() {
         <Button id='game_squares' onClick={()=> fillSquare(8,squares[8])}>{squares[8]}</Button>
       </ButtonGroup>
       
-
-
-
-
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
