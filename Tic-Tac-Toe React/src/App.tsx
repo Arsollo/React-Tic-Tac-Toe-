@@ -3,10 +3,12 @@ import './App.css'
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
+
 function App() {
-  const [count, setCount] = useState(0)
   const [squares, setSquares] = useState([" ", " ", " ", " ", " ", " ", " ", " ", " "])
   const [player, setPlayer] = useState("X")
+  const [backgroundColor, setBackGroundColor] = useState("whitesmoke")
+  const [winnerSquares, setwinnerSquares] = useState([1,1,1])
   const [message, setMessage] = useState("Player " + player + " : your turn to play")
 
   function switchPlayer(){
@@ -15,20 +17,32 @@ function App() {
     }else setPlayer("X")
   }
 
+  //Changing color
+  useEffect(()=>{
+    document.getElementById("game_squares" + winnerSquares[0])!.style.backgroundColor = backgroundColor
+    document.getElementById("game_squares" + winnerSquares[1])!.style.backgroundColor = backgroundColor
+    document.getElementById("game_squares" + winnerSquares[2])!.style.backgroundColor = backgroundColor
+    // document.getElementById("game_squares1")!.style.backgroundColor = backgroundColor
+  }, [backgroundColor])
+
   useEffect(()=> {
     setMessage("Player " + player + " : your turn to play")
 
     //Check if anyone won
     if (calculateWinner(squares) == "X"){
       setMessage("Game Over! Player X won!")
+      setBackGroundColor("green")
       setTimeout(() => {
         setSquares([" ", " ", " ", " ", " ", " ", " ", " ", " "])
         setMessage("Player X: your turn to play")
+        setBackGroundColor("whitesmoke")
       }, 3000);
     }else if (calculateWinner(squares) == "O"){
       setMessage("Game Over! Player O won!")
+      setBackGroundColor("green")
       setTimeout(() => {
         setSquares([" ", " ", " ", " ", " ", " ", " ", " ", " "])
+        setBackGroundColor("whitesmoke")
         setMessage("Player X: your turn to play")
       }, 3000);
     }
@@ -57,7 +71,11 @@ function App() {
     ];
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
-      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c] && squares[a] != " ") {
+
+        //Register winner squares
+        setwinnerSquares([a,b,c])
+
         return squares[a];
       }
     }
@@ -71,19 +89,19 @@ function App() {
       <h1>Tic Tac Toe</h1>
       <h2>{message}</h2>
       <ButtonGroup size="lg" className="game_squares_group">
-        <Button id='game_squares' onClick={()=> fillSquare(0,squares[0])}>{squares[0]}</Button>
-        <Button id='game_squares' onClick={()=> fillSquare(1,squares[1])}>{squares[1]}</Button>
-        <Button id='game_squares' onClick={()=> fillSquare(2,squares[2])}>{squares[2]}</Button>
+        <Button id='game_squares0' onClick={()=> fillSquare(0,squares[0])}>{squares[0]}</Button>
+        <Button id='game_squares1' onClick={()=> fillSquare(1,squares[1])}>{squares[1]}</Button>
+        <Button id='game_squares2' onClick={()=> fillSquare(2,squares[2])}>{squares[2]}</Button>
       </ButtonGroup>
       <ButtonGroup size="lg" className="game_squares_group">
-        <Button id='game_squares' onClick={()=> fillSquare(3,squares[3])}>{squares[3]}</Button>
-        <Button id='game_squares' onClick={()=> fillSquare(4,squares[4])}>{squares[4]}</Button>
-        <Button id='game_squares' onClick={()=> fillSquare(5,squares[5])}>{squares[5]}</Button>
+        <Button id='game_squares3' onClick={()=> fillSquare(3,squares[3])}>{squares[3]}</Button>
+        <Button id='game_squares4' onClick={()=> fillSquare(4,squares[4])}>{squares[4]}</Button>
+        <Button id='game_squares5' onClick={()=> fillSquare(5,squares[5])}>{squares[5]}</Button>
       </ButtonGroup>
       <ButtonGroup size="lg" className="game_squares_group">
-        <Button id='game_squares' onClick={()=> fillSquare(6,squares[6])}>{squares[6]}</Button>
-        <Button id='game_squares' onClick={()=> fillSquare(7,squares[7])}>{squares[7]}</Button>
-        <Button id='game_squares' onClick={()=> fillSquare(8,squares[8])}>{squares[8]}</Button>
+        <Button id='game_squares6' onClick={()=> fillSquare(6,squares[6])}>{squares[6]}</Button>
+        <Button id='game_squares7' onClick={()=> fillSquare(7,squares[7])}>{squares[7]}</Button>
+        <Button id='game_squares8' onClick={()=> fillSquare(8,squares[8])}>{squares[8]}</Button>
       </ButtonGroup>
       
     </>

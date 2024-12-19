@@ -5,50 +5,15 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
 .game_squares_group{
-
   font-size: 40px;
   text-align: center;
 
 }
 
-#game_squares{
+#game_squares0, #game_squares1, #game_squares2, #game_squares3, 
+#game_squares4, #game_squares5, #game_squares6, #game_squares7, #game_squares8{
+  background-color: whitesmoke;
   height: 130px;
   width: 130px;
   margin: 10px;
