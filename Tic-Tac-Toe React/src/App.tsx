@@ -11,6 +11,9 @@ function App() {
   const [winnerSquares, setwinnerSquares] = useState([1,1,1])
   const [message, setMessage] = useState("Player " + player + " : your turn to play")
   const [counter, setCounter] = useState(0)
+  const [scoreX, setScoreX] = useState(0)
+  const [scoreO, setScoreO] = useState(0)
+
 
   function switchPlayer(){
     if (player == "X"){
@@ -48,6 +51,7 @@ function App() {
 
     //Check if anyone won
     if (calculateWinner(squares) == "X"){
+      setScoreX(scoreX + 1)
       setMessage("Game Over! Player X won!")
       setBackGroundColor("green")
       setTimeout(() => {
@@ -56,6 +60,7 @@ function App() {
         setBackGroundColor("whitesmoke")
       }, 3000);
     }else if (calculateWinner(squares) == "O"){
+      setScoreO(scoreO + 1)
       setMessage("Game Over! Player O won!")
       setBackGroundColor("green")
       setTimeout(() => {
@@ -105,6 +110,12 @@ function App() {
 
   return (
     <>
+      <div className='scoreBoard'>
+        <h2>Score:</h2>
+        <div>X:   {scoreX}</div>
+        <div>O:   {scoreO}</div>
+      </div>
+
       <h1>Tic Tac Toe</h1>
       <h2>{message}</h2>
       <ButtonGroup size="lg" className="game_squares_group">

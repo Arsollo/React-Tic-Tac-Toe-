@@ -18,3 +18,10 @@
   width: 130px;
   margin: 10px;
 }
+
+.scoreBoard{
+  margin-left: 0px;
+  position: fixed;
+  left: 30px;
+  top: 30px;
+}
