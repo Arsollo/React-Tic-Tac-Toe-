@@ -10,12 +10,27 @@ function App() {
   const [backgroundColor, setBackGroundColor] = useState("whitesmoke")
   const [winnerSquares, setwinnerSquares] = useState([1,1,1])
   const [message, setMessage] = useState("Player " + player + " : your turn to play")
+  const [counter, setCounter] = useState(0)
 
   function switchPlayer(){
     if (player == "X"){
       setPlayer("O")
     }else setPlayer("X")
   }
+
+  //Checking if board is fulll and declare draw!
+  useEffect(()=>{
+    if(counter >= 9){
+      setMessage("Game is draw! Resetting board...")
+      setTimeout(() => {
+        setSquares([" ", " ", " ", " ", " ", " ", " ", " ", " "])
+        setBackGroundColor("whitesmoke")
+        setMessage("Player X: your turn to play")
+        setCounter(0)
+      }, 4000);
+
+    }
+  }, [counter])
 
   //Changing color
   useEffect(()=>{
@@ -26,7 +41,10 @@ function App() {
   }, [backgroundColor])
 
   useEffect(()=> {
-    setMessage("Player " + player + " : your turn to play")
+    if(counter >= 9){
+      setMessage("Game is draw! Resetting board...")
+    }
+    else setMessage("Player " + player + " : your turn to play")
 
     //Check if anyone won
     if (calculateWinner(squares) == "X"){
@@ -53,6 +71,7 @@ function App() {
       var temp = squares
       temp[squareid] = player
       setSquares(temp)
+      setCounter(counter + 1)
       switchPlayer()
     }else{
     }
